@@ -10,6 +10,6 @@ npm install
 
 Then compress the entire folder as a `.zip` file with the dependancies installed.
 
-Then `target/kafka-java-faas-app-1.0.jar` can be uploaded to AWS Lambda as a lambda function.
+Then the zip file can be uploaded to AWS Lambda as a lambda function.
 
 ![](img/nodejs-lambda-upload-function.png)
