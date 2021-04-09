@@ -1,10 +1,6 @@
-// const { Kafka } = require('kafkajs');
-const v8 = require("v8");
-// const avro = require("avro-js");
+const { Kafka } = require('kafkajs');
 
 require("./stream");
-
-// const primeDataType = avro.parse('./PrimeData.avsc');
 
 const isPrimeValueMapper = (value) => {
     let newValue = Object.assign({}, value);
@@ -29,20 +25,7 @@ exports.handler = async (event, context) => {
     const producer = kafka.producer();
     await producer.connect();
 
-    let topicMessages = [
-        // {
-        //     topic: "topic1",
-        //     messages: [
-        //         { key: "", value: "" }
-        //     ]
-        // },
-        // {
-        //     topic: "topic2",
-        //     messages: [
-        //         { key: "", value: "" }
-        //     ]
-        // }
-    ]
+    let topicMessages = [];
 
     let numbersInput = new Array();
     for (let partitionKey in event.records) {
@@ -69,7 +52,7 @@ exports.handler = async (event, context) => {
     );
 
     topicMessages.push(branches[0].to("prime-numbers-output"));
-    topicMessages.push(branches[0].to("composite-numbers-output"));
+    topicMessages.push(branches[1].to("composite-numbers-output"));
 
     console.log(topicMessages);
     await producer.sendBatch({
